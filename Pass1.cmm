@@ -1,0 +1,107 @@
+#include <stdio.hmm>
+#include <stdlib.hmm>
+
+#include "Pass1.hmm"
+#include "Lexical.hmm"
+#include "SymTbl.hmm"
+
+// static変数
+boolean errflag;        /* エラーフラグ */
+int length;
+int line;               /* 行数 */
+
+// Pass1の初期化
+public void initializePass1(){
+    errflag = false;
+    length = 0;
+    line = 0;
+}
+
+public boolean pass1(){
+    printf("Pass1start\n");
+    while(true){
+        token = getTok();
+        
+        if(token == LABEL){
+            asignLabel();
+            getCh();
+        } else if(token == LxNO){
+            increaseSymbleAddress(1);
+        } else if(token == LxLD){
+            increaseSymbleAddress(2);
+        } else if(token == LxST){
+            increaseSymbleAddress(2);
+        } else if (token == LxADD){
+            increaseSymbleAddress(2);
+        } else if(token == LxSUB){
+            increaseSymbleAddress(2);
+        } else if(token == LxCMP){
+            increaseSymbleAddress(2);
+        } else if(token == LxAND){
+            increaseSymbleAddress(2);
+        } else if(token == LxOR){
+            increaseSymbleAddress(2);
+        } else if(token == LxXOR){
+            increaseSymbleAddress(2);
+        } else if(token == LxSHLA){
+            increaseSymbleAddress(1);
+        } else if(token == LxSHLL){
+            increaseSymbleAddress(1);
+        } else if(token == LxSHRA){
+            increaseSymbleAddress(1);
+        } else if(token == LxSHRL){
+            increaseSymbleAddress(1);
+        } else if(token == LxJMP){
+            increaseSymbleAddress(2);
+        } else if(token == LxJZ){
+            increaseSymbleAddress(2);
+        } else if(token == LxJC){
+            increaseSymbleAddress(2);
+        } else if(token == LxJM){
+            increaseSymbleAddress(2);
+        } else if(token == LxCALL){
+            increaseSymbleAddress(2);
+        } else if(token == LxJNZ){
+            increaseSymbleAddress(2);
+        } else if(token == LxJNC){
+            increaseSymbleAddress(2);
+        } else if(token == LxJNM){
+            increaseSymbleAddress(2);
+        } else if(token == LxIN){
+            increaseSymbleAddress(2);
+        } else if(token == LxOUT){
+            increaseSymbleAddress(2);
+        } else if(token == LxPUSH){
+            increaseSymbleAddress(1);
+        } else if(token == LxPUSHF){
+            increaseSymbleAddress(1);
+        } else if(token == LxPOP){
+            increaseSymbleAddress(1);
+        } else if(token == LxPOPF){
+            increaseSymbleAddress(1);
+        } else if(token == LxEI){
+            increaseSymbleAddress(1);
+        } else if(token == LxDI){
+            increaseSymbleAddress(1);
+        } else if(token == LxRET){
+            increaseSymbleAddress(1);
+        } else if(token == LxRETI){
+            increaseSymbleAddress(1);
+        } else if(token == LxHALT){
+            increaseSymbleAddress(1);
+        } else if(token == LxEQU){
+            ;
+        } else if(token == LxORG){
+            ;
+        } else if(token == LxDC){
+            increaseSymbleAddress(1);
+        } else if(token == LxDS){
+            asignDS();
+        } else{
+            printf("pass1end\n");
+            return false;
+        }
+    }
+    
+    return true;
+}

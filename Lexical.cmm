@@ -1,0 +1,248 @@
+#include <string.hmm>
+#include <stdlib.hmm>
+#include <stdio.hmm>
+#include <ctype.hmm>
+
+#include "Lexical.hmm"
+#include "Assemble.hmm"
+#include "SymTbl.hmm"
+#include "Pass1.hmm"
+#include "Error.hmm"
+
+// 大域変数
+public char ch;             /* 現在の文字 */
+public char nextch;         /* 1つ先の文字 */
+public int token_num;           /* トークン番号 */
+
+#define EOF '\x7f'      //ASCII, UTF-8でDEL文字
+
+// static変数
+
+int position;       /* カーソルポジション */
+int ln;             /* 現在の行 */
+int ln2;            /* 現在の行 */
+int num;            /* token番号の控え */
+
+// 予約語の一覧表
+struct RsvWord {
+  char[] token;                         /* つづり */
+  int  operation_id;                    /* トークン値の組 */
+  int  size;                            /* サイズ */
+  int  machine_code;                    /* 機械語 */
+  int  analyzer;                        /* 変換の種類 */
+};
+
+RsvWord[] rsvWord = {
+{ "NO",		LxNO, 		1,		0x00,		1		}, 
+{ "LD",		LxLD,   	2,		0x10,		4		},
+{ "ST", 	LxST,		2,		0x20,		5		}, 
+{ "ADD", 	LxADD, 		2,		0x30,		4		},
+{ "SUB", 	LxSUB,		2,		0x40,		4		}, 
+{ "CMP",	LxCMP,  	2,		0x50,		4		},
+{ "AND", 	LxAND,		2,		0x60,		4		}, 
+{ "OR",   	LxOR,   	2,		0x70,		4		},
+{ "XOR", 	LxXOR,		2,		0x80,		4		}, 
+{ "SHLA",  	LxSHLA, 	1,		0x90,		2		},
+{ "SHLL",	LxSHLL,		1,		0x91,		2		}, 
+{ "SHRA",  	LxSHRA, 	1,		0x92,		2		},
+{ "SHRL", 	LxSHRL,		1,		0x93,		2		}, 
+{ "JMP",  	LxJMP, 		2,		0xA0,		6		},
+{ "JZ",		LxJZ,		2,		0xA4,		6		}, 
+{ "JC",   	LxJC,  		2,		0xA8,		6		},
+{ "JM",		LxJM,		2,		0xAC,		6		}, 
+{ "CALL",  	LxCALL, 	2,		0xB0,		6		},
+{ "JNZ",	LxJNZ, 		2,		0xB4,		6		}, 
+{ "JNC",    LxJNC, 		2,		0xB8,		6		},
+{ "JNM", 	LxJNM, 		2,		0xBC,		6		}, 
+{ "IN",     LxIN, 		2,		0xC0,		3		},
+{ "OUT", 	LxOUT,		2,		0xC3,		3		}, 
+{ "PUSH",  	LxPUSH, 	1,		0xD0,		2		},
+{ "PUSHF",	LxPUSHF,	1,		0xDD,		1		}, 
+{ "POP", 	LxPOP, 		1,		0xD2,		2		},
+{ "POPF", 	LxPOPF,		1,		0xDF,		1		}, 
+{ "EI",		LxEI,		1,		0xE0,		1		},
+{ "DI",		LxDI,		1,		0xE3,		1		}, 
+{ "RET",	LxRET,		1,		0xEC,		1		},
+{ "RETI",	LxRETI,		1,		0xEF,		1		}, 
+{ "HALT",	LxHALT,		1,		0xFF,		1		},
+{ "EQU",	LxEQU,		0,		0xFF,		7		}, 
+{ "ORG",	LxORG,		0,		0xFF,		7		},
+{ "DS",		LxDS,		0,		0xFF,		7		}, 
+{ "DC",		LxDC,		0,		0xFF,		8		},
+
+{ "G0",		LxG0,		0,  	0x00,		0   	}, 
+{ "G1",		LxG1,		0,  	0x04,		0   	},
+{ "G2",		LxG2,		0,  	0x08,		0   	}, 
+{ "SP",		LxSP,		0,  	0x0C,		0   	}
+};
+
+
+// 次の文字を取ってきて行を1行進める関数
+public char getCh() {
+    ch = nextch;                                /* 次の文字を現在の文字にする */
+    if(feof(sourcefp)) {                        /* 次の入力がEOFなら */
+        nextch = EOF;                           /* nextchにEOFの目印を */
+    } else {                                    /* そうでなければ */
+        nextch = toUpper(fgetc(sourcefp));      /* nextchに次の文字を読み込む */
+        if(nextch==EOF)                         /* nextchにEOFが読み込まれていたら */
+            error("input has '\x7f'");          /* 入力にEOFをがあるエラーを出力 */
+    }
+    if(ch=='\n') ln2 = ln2 + 1;                 /* 改行なら次の行に進める */
+    return ch;                                  /* 現在の文字を返す */
+}
+
+// 改行が来るまで空白を飛ばす関数
+void skipSpaces() {
+    while(ch != '\n' && isSpace(ch)){               /* 改行以外かつ空白なら */
+        getCh();                                    /* 1文字読み飛ばす */
+    }
+}
+
+// 行末まで読み飛ばす関数
+void skipToNewLineOrEOF() {
+    while(ch != '\n' && ch != EOF){                 /* 改行かEOFが来るまで */
+        getCh();                                    /* 1文字読み飛ばす */
+    }
+}
+
+// C++タイプのコメントを読み飛ばす関数
+void skipCppCom() {
+    skipToNewLineOrEOF();                           /* 改行またはEOFまで読み飛ばす */
+}
+
+//コメント、空白を読み飛ばす
+void skipAllSpaces() {
+    while(true) {
+        skipSpaces();                               /* 改行以外の空白を飛ばす */
+        if(ch == '/' && nextch == '/') {            /* "//"ならコメント開始 */
+            skipCppCom();                           /* コメントを読み飛ばす */
+        } else if(ch == '\n') {
+            getCh();
+        } else{ 
+            break;                                  /* "//",'\n'以外なら抜け出す */
+        }
+    }
+}
+
+// 8進数字かテスト
+boolean isOdigit(char ch) {
+  return ord('0') <= ord(ch) && ord(ch) <= ord('7'); // '0'〜'7'が8進数
+}
+
+// 16進数字の値を返す
+int hex(char ch) {
+  if (isDigit(ch)) return ord(ch) - ord('0');      // '0'〜'9'の場合
+  ch = toUpper(ch);                                // 英字は大文字に統一
+  return ord(ch) - ord('A') + 10;                  // 'A'〜'F'の場合
+}
+
+// 16進数を読んで値を返す
+int getHex() {
+  if (!isXdigit(ch))                               // 0x の次に16進数がない
+    error("16進数の形式");
+  int v = 0;                                       // 初期値は 0
+  while (isXdigit(ch)) {                           // 16進数字の間
+    v = v*16 + hex(ch);                            // 値を計算
+    getCh();                                       // 次の文字を読む
+  }
+  return v;                                        // 16進数の値を返す
+}
+
+// 8進数を読んで値を返す
+int getOct() {
+  int val = 0;                                     // 初期値は 0
+  while (isOdigit(ch)) {                           // 8進数字の間
+    val = val*8 + ord(ch) - ord('0');              // 値を計算
+    getCh();                                       // 次の文字を読む
+  }
+  return val;                                      // 8進数の値を返す
+}
+
+// 10進数を読んで値を返す
+int getDec() {
+  int val = 0;                                     // 初期値は 0
+  while (isDigit(ch)) {                            // 10進数字の間
+    val = val*10 + ord(ch) - ord('0');             // 値を計算
+    getCh();                                       // 次の文字を読む
+  }
+  return val;						                           // 10進数の値を返す
+}
+
+// 数値を読み込む
+public int getDigit() {
+  int val = 0;
+  if(ch=='0' && (nextch=='x' || nextch=='X')) {    // '0x' で始まれば16進数
+    getCh();                                       // '0'を読み飛ばす
+    getCh();                                       // 'x'を読み飛ばす
+    val = getHex();                                // 16進数の読み込み
+  } else if(ch=='0') {                             // '0' で始まれば8進数
+    val = getOct();                                // 8進数を読み込む
+  } else {                                         // それ以外は10進のはず
+    val = getDec();                                // 10進数を読み込む
+  }
+  return val;                                      // val=値
+}
+
+// 命令の種類を解析
+void searchToken() {
+    char[] str = malloc(sizeof(char)*10);           /* つづりの記憶領域を生成 */
+    int i;
+    int length;                                     /* つづりの長さ */
+    num = 0;
+
+    for(length=0; isAlpha(ch) && length<LENGTH; length=length+1){    /* アルファベットで開始かつ長さがオーバーしていない */
+        str[length] = ch;                           /* 文字を記憶 */
+        getCh();                                    /* 次の文字をとってくる */
+    }
+
+    str[length] = '\0';
+
+    printf("%c%c%c%c\n",str[0],str[1],str[2],str[3]);
+    for(i=0; i<RsvNum; i=i+1) {                     /* 命令の種類の数まで */
+        if(strCmp(str,rsvWord[i].token) == 0) {     /* どの命令か判定し一致すれば */
+            num = rsvWord[i].operation_id;          /* 命令の番号を代入 */
+            free(str);                              /* 命令の記憶領域を解放 */
+            break;
+        }
+    }
+
+    if(num == 0) {
+    error("存在しない命令です\n");
+    exit(1);
+    }
+}
+
+public int getTok(){
+    if(ch == '\0')                      /* 一度も文字を取ってきていない場合は */
+        getCh();                        /* 初めの文字を取ってくる */
+    skipAllSpaces();                    /* 次の文字まで行く */
+    if(ch == '_'){                      /* '_'で始まるなら */
+        return LABEL;                   /* それはラベルであることを返す */
+    } else if(isAlpha(ch)){             /* 英文字で始まるなら */
+        searchToken();                  /* それは命令なのでどの命令か判別する */
+        if(num == LxDS){ /* DSとDC以外なら */
+            skipAllSpaces();            /* 次の数字まで飛んでおく */
+        } else{
+            skipToNewLineOrEOF();       /* 次の行に進めておく */
+        }
+        return num;                     /* 命令の番号を返す */
+    } else{
+        skipToNewLineOrEOF();           /* どれでもなければ次の行に行く */
+    }
+
+    if(ch == EOF){
+        return -1;
+    } else{
+        return 0;
+    }
+    return 0;
+}
+
+// 全体の初期化
+public void Initialization() {
+    ch = '\0';                          /* 現在の文字を初期化 */
+    nextch = '\n';                      /* 次の文字の初期化 */
+    position = 0;
+    clearSymbolTbl();                   /* ラベル表を初期化 */
+    initializePass1();                  /* Pass1を初期化する */
+}

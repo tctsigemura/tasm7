@@ -1,0 +1,51 @@
+#
+# C-- 言語から色々なファイルに変換する手順
+#
+
+INCDIR=/usr/local/cmmInclude
+LIBDIR=/usr/local/cmmLib
+
+CFLAGS+=-Wno-parentheses-equality
+%.c : CPPFLAGS = -DC
+
+# プリプロセッサの実行方法
+CPP=cc -E ${CPPFLAGS} -std=c99 -nostdinc -I${INCDIR} -I${LIBDIR} - < 
+
+all: Tasm7 Tasm7.v Tasm7.s Tasm7.exe
+
+# MacOS, UNIX の実行形式を作る
+Tasm7: Tasm7.c Error.c SymTbl.c Lexical.c Pass1.c
+	cc -o Tasm7 ${CFLAGS} Tasm7.c Error.c SymTbl.c Lexical.c Pass1.c ${LIBDIR}/wrapper.c
+
+# TacOS の実行形式を作る
+Tasm7.exe: Tasm7.s
+	as-- Tasm7.s
+	ld-- mod.o /usr/local/cmmLib/libtac.o Tasm7.o > Tasm7.sym
+	objexe-- Tasm7.exe mod.o 600 | sort --key=1 > Tasm7.map
+
+# C言語に変換する
+Tasm7.c: Tasm7.cmm
+	${CPP} Tasm7.cmm | c-c-- > Tasm7.c
+
+Error.c: Error.cmm
+	${CPP} Error.cmm | c-c-- > Error.c
+
+SymTbl.c: SymTbl.cmm
+	${CPP} SymTbl.cmm | c-c-- > SymTbl.c
+
+Lexical.c: Lexical.cmm
+	${CPP} Lexical.cmm | c-c-- > Lexical.c
+
+Pass1.c: Pass1.cmm
+	${CPP} Pass1.cmm | c-c-- > Pass1.c
+
+# C--コンパイラの中間言語に変換する
+Tasm7.v: Tasm7.cmm
+	${CPP} Tasm7.cmm | vm-c-- > Tasm7.v
+
+# TaCのアセンブリ言語に変換する
+Tasm7.s: Tasm7.cmm
+	${CPP} Tasm7.cmm | c-- > Tasm7.s
+
+clean:
+	rm -f Tasm7 Tasm7.c Tasm7.s Tasm7.v *.lst *.sym *.map *.o *.exe *~

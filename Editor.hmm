@@ -1,0 +1,3 @@
+public void printOutFile();
+public void writeInFile(char ch);
+

@@ -1,0 +1,18 @@
+ld g0,#0
+ld g1,#0
+_loop cmp g1,#5
+jz fin
+ld g2,a,g1
+and g2,#01h
+jz even
+add g0,#1
+ _even add g1,#1
+jmp loop
+_fin st g0,B
+ halt
+ _A dc 1
+dc 2
+ dc 3
+dc 4
+ dc 5
+ _B ds 10

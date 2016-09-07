@@ -1,0 +1,69 @@
+#include <stdio.hmm>
+#include <stdlib.hmm>
+
+#include "SymTbl.hmm"
+#include "Assemble.hmm"
+#include "Lexical.hmm"
+#include "Error.hmm"
+
+/*
+ * 大域変数
+ */
+public int[] dc;                                /* dc用の配列を宣言 */
+public int[] ds;                                /* ds用の配列を宣言 */
+
+/*
+ * static変数
+ */
+int label_cnt;                                  /* ラベルの個数のカウント用 */
+int pca;                                        /* プログラムカウンタアドレス */
+char[][] label = array(DATA,LENGTH);            /* ラベル名を記憶する配列 */
+int[] label_address = array(DATA);              /* ラベルのアドレスを記憶する配列 */
+
+// SymTblの初期化
+public void clearSymbolTbl(){
+    label_cnt = 0;
+    pca = 0;
+}
+
+/*
+ * ラベルを登録する
+ */
+public void asignLabel(){
+    int i;
+    for(i=0;i<LENGTH;i=i+1){                    /* ラベルの最大長まで */
+        label[label_cnt][i]=getCh();            /* ラベルの文字を登録 */
+        if(nextch == ' '){                      /* 次の文字が空白文字なら */
+            label_address[label_cnt] = pca;     /* ラベルのアドレス登録 */
+            break;
+        } else if(nextch == '\n'){              /* 次の文字が空白文字なら */
+            error("No operation");              /* 命令がないことを表示 */
+        } 
+    }
+    int j;
+    for(j=0;j<LENGTH;j=j+1){
+       printf("%c",label[label_cnt][j]);
+    }
+    printf("\n");
+    printf("label_cnt=%d Laddress=%d\n",label_cnt,label_address[label_cnt]);
+    label_cnt = label_cnt+1;                    /* ラベルの個数を増やす */
+}
+
+/*
+ * DSの領域確保
+ */
+public void asignDS(){
+    int cnt;                                    /* DSの個数を保存 */
+    cnt = getDigit();                           /* 何進数か判定後、cntに保存する */
+    printf("ds_cnt = %d\n",cnt);
+    ds = malloc(sizeof(int)*cnt);               /* DSの領域を確保 */
+}
+
+/*
+ * ラベル表のアドレスを上げる
+ */
+
+public void increaseSymbleAddress(int i){
+    pca = pca + i;                              /* プログラムカウンタをi増加させる */
+    printf("pca = %d\n",pca);
+}

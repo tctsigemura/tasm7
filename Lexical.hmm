@@ -1,0 +1,64 @@
+#ifndef LEXICAL_H
+
+#define LxNO        1       //NO
+#define LxLD        2       //LD
+#define LxST        3       //ST
+
+#define LxADD       10      //ADD
+#define LxSUB       11      //SUB
+#define LxCMP       12      //CMP
+#define LxAND       13      //AND
+#define LxOR        14      //OR
+#define LxXOR       15      //XOR
+
+#define LxSHLA      20      //SHLA
+#define LxSHLL      21      //SHLL
+#define LxSHRA      22      //SHRA
+#define LxSHRL      23      //SHRL
+
+#define LxJMP       30      //JMP
+#define LxJZ        31      //JZ
+#define LxJC        32      //JC
+#define LxJM        33      //JM
+#define LxJNZ       34      //JNZ
+#define LxJNC       35      //JNC
+#define LxJNM       36      //JNM
+#define LxCALL      37      //CALL
+
+#define LxPUSH      40      //PUSH
+#define LxPUSHF     41      //PUSHF
+#define LxPOP       42      //POP
+#define LxPOPF      43      //POPF
+
+#define LxIN        50      //IN
+#define LxOUT       51      //OUT
+#define LxEI        52      //EI
+#define LxDI        53      //DI
+#define LxRET       54      //RET
+#define LxRETI      55      //RETI
+#define LxHALT      56      //HALT
+
+#define LxEQU       60      //EQU
+#define LxORG       61      //ORG
+#define LxDS        62      //DS
+#define LxDC        63      //DC
+
+#define LxG0        100     //G0
+#define LxG1        101     //G1
+#define LxG2        102     //G2
+#define LxSP        103     //SP
+
+#define RsvNum    40      //予約語の数
+
+#define LABEL       200     //LABEL判定
+
+public char ch;
+public char nextch;
+public int token;
+
+public char getCh();
+public int getDigit();
+public int getTok();
+
+public void Initialization();
+#endif      /* LEXICAL_H */

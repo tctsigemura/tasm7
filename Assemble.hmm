@@ -1,0 +1,4 @@
+
+public FILE sourcefp;
+public FILE binaryfp;
+public FILE listfp;

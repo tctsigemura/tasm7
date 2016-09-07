@@ -1,0 +1,6 @@
+#ifndef PASS1_H
+
+public void initializePass1();
+public boolean pass1();
+
+#endif      /* PASS1 */

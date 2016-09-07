@@ -1,0 +1,72 @@
+#include <stdio.hmm>
+#include <stdlib.hmm>
+#include <string.hmm>
+#include <errno.hmm>
+
+#include "Assemble.hmm"
+#include "Error.hmm"
+#include "Lexical.hmm"
+#include "Pass1.hmm"
+#include "SymTbl.hmm"
+
+// 大域変数
+public FILE sourcefp;
+public FILE binaryfp;
+public FILE binaryfp;
+
+// 使い方表示関数
+void usage(char[] name) {
+    fprintf(stderr, "使用方法 : %s [-h] [<source file>]\n",name);
+    fprintf(stderr, "    <source file> is assembly source file\n");
+    fprintf(stderr, "    assemble result will be shown Tasm.list \n");
+    fprintf(stderr, "\n");
+    fprintf(stderr, "    -h : show this message\n");
+    fprintf(stderr, "\n");
+}
+
+// main 関数
+public int main(int argc, char[][] argv){
+    //使い方表示
+    int i = 1;
+
+    if (argc==i){                                   /* ソースコードがない */
+        error("引数が足りていません");               /* 今はこれで代用本番では消す */
+        exit(EINVAL);                               /* 引数が足りていませんと出力 */
+        return -1;
+    }
+    
+    if (argc>i && (strCmp(argv[i],"-h")==0 ) ) {    /* 使い方を表示 */
+        usage(argv[0]);
+        return 0 ;
+    }
+
+    if (argc==i+1) {                                /* 引数としてソースファイルがある */
+        sourcefp = fopen(argv[i],"r");
+        if(sourcefp == null){                             /* ソースファイルをオープン */
+            perror(argv[i]);                        /* オープン失敗の場合は、
+            return -1 ;                                メッセージを出力して終了 */
+        }
+    }
+    
+    if(argc>2) {                                    /* 引数が多すぎる場合 */
+        error("引数が多すぎます");
+        return -1;
+    }
+
+   //使い方表示終わり
+
+    // 全ての初期化
+    token = 0;
+    Initialization();
+   
+
+    // Pass1の実行
+    while(pass1()){
+        ;
+    }
+
+    fclose(sourcefp);
+    free(dc);
+    free(ds);
+    return 0 ;
+}

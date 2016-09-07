@@ -1,0 +1,9 @@
+#
+# Makefile.unix : C--言語からMacOSやUNIXの実行形式に変換する手順
+#
+
+Tasm7: Tasm7.cmm
+	cm2c -o Tasm7 Tasm7.cmm
+
+clean:
+	rm -f Tasm7
