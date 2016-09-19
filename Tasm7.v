@@ -14,369 +14,6 @@ _binaryfp
 	WS	1
 _listfp
 	WS	1
-.L1
-	STRING	"NO"
-.L2
-	STRING	"LD"
-.L3
-	STRING	"ST"
-.L4
-	STRING	"ADD"
-.L5
-	STRING	"SUB"
-.L6
-	STRING	"CMP"
-.L7
-	STRING	"AND"
-.L8
-	STRING	"OR"
-.L9
-	STRING	"XOR"
-.L10
-	STRING	"SHLA"
-.L11
-	STRING	"SHLL"
-.L12
-	STRING	"SHRA"
-.L13
-	STRING	"SHRL"
-.L14
-	STRING	"JMP"
-.L15
-	STRING	"JZ"
-.L16
-	STRING	"JC"
-.L17
-	STRING	"JM"
-.L18
-	STRING	"CALL"
-.L19
-	STRING	"JNZ"
-.L20
-	STRING	"JNC"
-.L21
-	STRING	"JNM"
-.L22
-	STRING	"IN"
-.L23
-	STRING	"OUT"
-.L24
-	STRING	"PUSH"
-.L25
-	STRING	"PUSHF"
-.L26
-	STRING	"POP"
-.L27
-	STRING	"POPF"
-.L28
-	STRING	"EI"
-.L29
-	STRING	"DI"
-.L30
-	STRING	"RET"
-.L31
-	STRING	"RETI"
-.L32
-	STRING	"HALT"
-.L33
-	STRING	"EQU"
-.L34
-	STRING	"ORG"
-.L35
-	STRING	"DS"
-.L36
-	STRING	"DC"
-.L37
-	STRING	"G0"
-.L38
-	STRING	"G1"
-.L39
-	STRING	"G2"
-.L40
-	STRING	"SP"
-.L41
-	DW	.L1
-	DW	1
-	DW	1
-	DW	0
-	DW	1
-.L42
-	DW	.L2
-	DW	2
-	DW	2
-	DW	16
-	DW	4
-.L43
-	DW	.L3
-	DW	3
-	DW	2
-	DW	32
-	DW	5
-.L44
-	DW	.L4
-	DW	10
-	DW	2
-	DW	48
-	DW	4
-.L45
-	DW	.L5
-	DW	11
-	DW	2
-	DW	64
-	DW	4
-.L46
-	DW	.L6
-	DW	12
-	DW	2
-	DW	80
-	DW	4
-.L47
-	DW	.L7
-	DW	13
-	DW	2
-	DW	96
-	DW	4
-.L48
-	DW	.L8
-	DW	14
-	DW	2
-	DW	112
-	DW	4
-.L49
-	DW	.L9
-	DW	15
-	DW	2
-	DW	128
-	DW	4
-.L50
-	DW	.L10
-	DW	20
-	DW	1
-	DW	144
-	DW	2
-.L51
-	DW	.L11
-	DW	21
-	DW	1
-	DW	145
-	DW	2
-.L52
-	DW	.L12
-	DW	22
-	DW	1
-	DW	146
-	DW	2
-.L53
-	DW	.L13
-	DW	23
-	DW	1
-	DW	147
-	DW	2
-.L54
-	DW	.L14
-	DW	30
-	DW	2
-	DW	160
-	DW	6
-.L55
-	DW	.L15
-	DW	31
-	DW	2
-	DW	164
-	DW	6
-.L56
-	DW	.L16
-	DW	32
-	DW	2
-	DW	168
-	DW	6
-.L57
-	DW	.L17
-	DW	33
-	DW	2
-	DW	172
-	DW	6
-.L58
-	DW	.L18
-	DW	37
-	DW	2
-	DW	176
-	DW	6
-.L59
-	DW	.L19
-	DW	34
-	DW	2
-	DW	180
-	DW	6
-.L60
-	DW	.L20
-	DW	35
-	DW	2
-	DW	184
-	DW	6
-.L61
-	DW	.L21
-	DW	36
-	DW	2
-	DW	188
-	DW	6
-.L62
-	DW	.L22
-	DW	50
-	DW	2
-	DW	192
-	DW	3
-.L63
-	DW	.L23
-	DW	51
-	DW	2
-	DW	195
-	DW	3
-.L64
-	DW	.L24
-	DW	40
-	DW	1
-	DW	208
-	DW	2
-.L65
-	DW	.L25
-	DW	41
-	DW	1
-	DW	221
-	DW	1
-.L66
-	DW	.L26
-	DW	42
-	DW	1
-	DW	210
-	DW	2
-.L67
-	DW	.L27
-	DW	43
-	DW	1
-	DW	223
-	DW	1
-.L68
-	DW	.L28
-	DW	52
-	DW	1
-	DW	224
-	DW	1
-.L69
-	DW	.L29
-	DW	53
-	DW	1
-	DW	227
-	DW	1
-.L70
-	DW	.L30
-	DW	54
-	DW	1
-	DW	236
-	DW	1
-.L71
-	DW	.L31
-	DW	55
-	DW	1
-	DW	239
-	DW	1
-.L72
-	DW	.L32
-	DW	56
-	DW	1
-	DW	255
-	DW	1
-.L73
-	DW	.L33
-	DW	60
-	DW	0
-	DW	255
-	DW	7
-.L74
-	DW	.L34
-	DW	61
-	DW	0
-	DW	255
-	DW	7
-.L75
-	DW	.L35
-	DW	62
-	DW	0
-	DW	255
-	DW	7
-.L76
-	DW	.L36
-	DW	63
-	DW	0
-	DW	255
-	DW	8
-.L77
-	DW	.L37
-	DW	100
-	DW	0
-	DW	0
-	DW	0
-.L78
-	DW	.L38
-	DW	101
-	DW	0
-	DW	4
-	DW	0
-.L79
-	DW	.L39
-	DW	102
-	DW	0
-	DW	8
-	DW	0
-.L80
-	DW	.L40
-	DW	103
-	DW	0
-	DW	12
-	DW	0
-.L81
-	DW	.L41
-	DW	.L42
-	DW	.L43
-	DW	.L44
-	DW	.L45
-	DW	.L46
-	DW	.L47
-	DW	.L48
-	DW	.L49
-	DW	.L50
-	DW	.L51
-	DW	.L52
-	DW	.L53
-	DW	.L54
-	DW	.L55
-	DW	.L56
-	DW	.L57
-	DW	.L58
-	DW	.L59
-	DW	.L60
-	DW	.L61
-	DW	.L62
-	DW	.L63
-	DW	.L64
-	DW	.L65
-	DW	.L66
-	DW	.L67
-	DW	.L68
-	DW	.L69
-	DW	.L70
-	DW	.L71
-	DW	.L72
-	DW	.L73
-	DW	.L74
-	DW	.L75
-	DW	.L76
-	DW	.L77
-	DW	.L78
-	DW	.L79
-	DW	.L80
-_rsvWord
-	DW	.L81
 _ch
 	WS	1
 _nextch
@@ -387,66 +24,66 @@ _dc
 	WS	1
 _ds
 	WS	1
-.L82
+.L1
 	STRING	"使用方法 : %s [-h] [<source file>]\n"
-.L83
+.L2
 	STRING	"    <source file> is assembly source file\n"
-.L84
+.L3
 	STRING	"    assemble result will be shown Tasm.list \n"
-.L85
+.L4
 	STRING	"\n"
-.L86
+.L5
 	STRING	"    -h : show this message\n"
-.L87
+.L6
 	STRING	"\n"
 .usage
 	ENTRY	0
 	LDP	1
 	ARG
-	LDC	.L82
+	LDC	.L1
 	ARG
 	LDG	_stderr
 	ARG
 	CALLF	3,_fprintf
 	POP
-	LDC	.L83
+	LDC	.L2
 	ARG
 	LDG	_stderr
 	ARG
 	CALLF	2,_fprintf
 	POP
-	LDC	.L84
+	LDC	.L3
 	ARG
 	LDG	_stderr
 	ARG
 	CALLF	2,_fprintf
 	POP
-	LDC	.L85
+	LDC	.L4
 	ARG
 	LDG	_stderr
 	ARG
 	CALLF	2,_fprintf
 	POP
-	LDC	.L86
+	LDC	.L5
 	ARG
 	LDG	_stderr
 	ARG
 	CALLF	2,_fprintf
 	POP
-	LDC	.L87
+	LDC	.L6
 	ARG
 	LDG	_stderr
 	ARG
 	CALLF	2,_fprintf
 	POP
 	RET
-.L88
+.L7
 	STRING	"引数が足りていません"
-.L89
+.L8
 	STRING	"-h"
-.L90
+.L9
 	STRING	"r"
-.L91
+.L10
 	STRING	"引数が多すぎます"
 _main
 	ENTRY	1
@@ -456,8 +93,8 @@ _main
 	LDP	1
 	LDL	1
 	EQ
-	JF	.L92
-	LDC	.L88
+	JF	.L11
+	LDC	.L7
 	ARG
 	CALLP	1,_error
 	LDC	65524
@@ -465,13 +102,13 @@ _main
 	CALLP	1,_exit
 	LDC	65535
 	MREG
-	JMP	.L93
-.L92
+	JMP	.L12
+.L11
 	LDP	1
 	LDL	1
 	GT
-	JF	.L94
-	LDC	.L89
+	JF	.L13
+	LDC	.L8
 	ARG
 	LDP	2
 	LDL	1
@@ -480,7 +117,7 @@ _main
 	CALLF	2,_strCmp
 	LDC	0
 	EQ
-	JF	.L94
+	JF	.L13
 	LDP	2
 	LDC	0
 	LDW
@@ -488,15 +125,15 @@ _main
 	CALLP	1,.usage
 	LDC	0
 	MREG
-	JMP	.L93
-.L94
+	JMP	.L12
+.L13
 	LDL	1
 	LDC	1
 	ADD
 	LDP	1
 	EQ
-	JF	.L95
-	LDC	.L90
+	JF	.L14
+	LDC	.L9
 	ARG
 	LDP	2
 	LDL	1
@@ -508,34 +145,34 @@ _main
 	LDG	_sourcefp
 	LDC	0
 	EQ
-	JF	.L96
+	JF	.L15
 	LDP	2
 	LDL	1
 	LDW
 	ARG
 	CALLP	1,_perror
-.L96
-.L95
+.L15
+.L14
 	LDP	1
 	LDC	2
 	GT
-	JF	.L97
-	LDC	.L91
+	JF	.L16
+	LDC	.L10
 	ARG
 	CALLP	1,_error
 	LDC	65535
 	MREG
-	JMP	.L93
-.L97
+	JMP	.L12
+.L16
 	LDC	0
 	STG	_token
 	POP
 	CALLP	0,_Initialization
-.L98
+.L17
 	CALLF	0,_pass1
-	JF	.L99
-	JMP	.L98
-.L99
+	JF	.L18
+	JMP	.L17
+.L18
 	LDG	_sourcefp
 	ARG
 	CALLF	1,_fclose
@@ -548,5 +185,5 @@ _main
 	CALLP	1,_free
 	LDC	0
 	MREG
-.L93
+.L12
 	RET

@@ -6,7 +6,7 @@
 public int[] dc;
 public int[] ds;
 
-public void clearSymbolTbl();
+public void clearSymTbl();
 public void asignLabel();
 public void asignDS();
 public void increaseSymbleAddress(int i);

@@ -364,7 +364,7 @@
 1d36	TEXT	.L1
 1d3a	TEXT	.L2
 1d44	TEXT	@Symtbl.s
-1d44	TEXT	_clearSymbolTbl
+1d44	TEXT	_clearSymTbl
 1d5c	TEXT	_asignLabel
 1d6a	TEXT	.L57
 1da2	TEXT	.L59
@@ -700,7 +700,7 @@
 2ed0	BSS	.position
 2ed2	BSS	.ln
 2ed4	BSS	.ln2
-2ed6	BSS	.num
+2ed6	BSS	.opnum
 2ed8	BSS	.errflag
 2eda	BSS	.length
 2edc	BSS	.line

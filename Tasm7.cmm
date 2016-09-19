@@ -11,7 +11,7 @@
 
 // 大域変数
 public FILE sourcefp;
-public FILE binaryfp;
+public FILE listfp;
 public FILE binaryfp;
 
 // 使い方表示関数

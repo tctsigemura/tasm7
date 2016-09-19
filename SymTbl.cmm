@@ -21,7 +21,7 @@ char[][] label = array(DATA,LENGTH);            /* ラベル名を記憶する�
 int[] label_address = array(DATA);              /* ラベルのアドレスを記憶する配列 */
 
 // SymTblの初期化
-public void clearSymbolTbl(){
+public void clearSymTbl(){
     label_cnt = 0;
     pca = 0;
 }
