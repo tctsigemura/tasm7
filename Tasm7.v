@@ -177,12 +177,6 @@ _main
 	ARG
 	CALLF	1,_fclose
 	POP
-	LDG	_dc
-	ARG
-	CALLP	1,_free
-	LDG	_ds
-	ARG
-	CALLP	1,_free
 	LDC	0
 	MREG
 .L12

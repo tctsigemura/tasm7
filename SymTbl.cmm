@@ -40,13 +40,10 @@ public void asignLabel(){
             error("No operation");              /* 命令がないことを表示 */
         } 
     }
-    int j;
-    for(j=0;j<LENGTH;j=j+1){
-       printf("%c",label[label_cnt][j]);
-    }
-    printf("\n");
-    printf("label_cnt=%d Laddress=%d\n",label_cnt,label_address[label_cnt]);
+    printf("%s\n",label[label_cnt]);
+    printf("Laddress=%d\n",label_address[label_cnt]);
     label_cnt = label_cnt+1;                    /* ラベルの個数を増やす */
+    printf("label_cnt=%d\n",label_cnt);
 }
 
 /*

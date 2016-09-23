@@ -7,6 +7,7 @@
 #include "Assemble.hmm"
 #include "SymTbl.hmm"
 #include "Pass1.hmm"
+#include "RsvWord.hmm"
 #include "Error.hmm"
 
 // 大域変数
@@ -22,59 +23,6 @@ int position;       /* カーソルポジション */
 int ln;             /* 現在の行 */
 int ln2;            /* 現在の行 */
 int opnum;            /* token番号の控え */
-
-// 予約語の一覧表
-struct RsvWord {
-  char[] token;                         /* つづり */
-  int  operation_id;                    /* トークン値の組 */
-  int  size;                            /* サイズ */
-  int  machine_code;                    /* 機械語 */
-  int  analyzer;                        /* 変換の種類 */
-};
-
-RsvWord[] rsvWord = {
-{ "NO",		LxNO, 		1,		0x00,		1		}, 
-{ "LD",		LxLD,   	2,		0x10,		4		},
-{ "ST", 	LxST,		2,		0x20,		5		}, 
-{ "ADD", 	LxADD, 		2,		0x30,		4		},
-{ "SUB", 	LxSUB,		2,		0x40,		4		}, 
-{ "CMP",	LxCMP,  	2,		0x50,		4		},
-{ "AND", 	LxAND,		2,		0x60,		4		}, 
-{ "OR",   	LxOR,   	2,		0x70,		4		},
-{ "XOR", 	LxXOR,		2,		0x80,		4		}, 
-{ "SHLA",  	LxSHLA, 	1,		0x90,		2		},
-{ "SHLL",	LxSHLL,		1,		0x91,		2		}, 
-{ "SHRA",  	LxSHRA, 	1,		0x92,		2		},
-{ "SHRL", 	LxSHRL,		1,		0x93,		2		}, 
-{ "JMP",  	LxJMP, 		2,		0xA0,		6		},
-{ "JZ",		LxJZ,		2,		0xA4,		6		}, 
-{ "JC",   	LxJC,  		2,		0xA8,		6		},
-{ "JM",		LxJM,		2,		0xAC,		6		}, 
-{ "CALL",  	LxCALL, 	2,		0xB0,		6		},
-{ "JNZ",	LxJNZ, 		2,		0xB4,		6		}, 
-{ "JNC",    LxJNC, 		2,		0xB8,		6		},
-{ "JNM", 	LxJNM, 		2,		0xBC,		6		}, 
-{ "IN",     LxIN, 		2,		0xC0,		3		},
-{ "OUT", 	LxOUT,		2,		0xC3,		3		}, 
-{ "PUSH",  	LxPUSH, 	1,		0xD0,		2		},
-{ "PUSHF",	LxPUSHF,	1,		0xDD,		1		}, 
-{ "POP", 	LxPOP, 		1,		0xD2,		2		},
-{ "POPF", 	LxPOPF,		1,		0xDF,		1		}, 
-{ "EI",		LxEI,		1,		0xE0,		1		},
-{ "DI",		LxDI,		1,		0xE3,		1		}, 
-{ "RET",	LxRET,		1,		0xEC,		1		},
-{ "RETI",	LxRETI,		1,		0xEF,		1		}, 
-{ "HALT",	LxHALT,		1,		0xFF,		1		},
-{ "EQU",	LxEQU,		0,		0xFF,		7		}, 
-{ "ORG",	LxORG,		0,		0xFF,		7		},
-{ "DS",		LxDS,		0,		0xFF,		7		}, 
-{ "DC",		LxDC,		0,		0xFF,		8		},
-
-{ "G0",		LxG0,		0,  	0x00,		0   	}, 
-{ "G1",		LxG1,		0,  	0x04,		0   	},
-{ "G2",		LxG2,		0,  	0x08,		0   	}, 
-{ "SP",		LxSP,		0,  	0x0C,		0   	}
-};
 
 
 // 次の文字を取ってきて行を1行進める関数
@@ -197,14 +145,14 @@ void searchToken() {
 
     str[length] = '\0';
 
-    printf("%c%c%c%c\n",str[0],str[1],str[2],str[3]);
+    printf("%s\n",str);
     for(i=0; i<RsvNum; i=i+1) {                     /* 命令の種類の数まで */
         if(strCmp(str,rsvWord[i].token) == 0) {     /* どの命令か判定し一致すれば */
-            opnum = rsvWord[i].operation_id;          /* 命令の番号を代入 */
-            free(str);                              /* 命令の記憶領域を解放 */
+            opnum = rsvWord[i].operation_id;        /* 命令の番号を代入 */         
             break;
         }
     }
+    free(str);                                      /* strの領域解放 */
 
     if(opnum == 0) {
     error("存在しない命令です\n");
@@ -220,12 +168,12 @@ public int getTok(){
         return LABEL;                   /* それはラベルであることを返す */
     } else if(isAlpha(ch)){             /* 英文字で始まるなら */
         searchToken();                  /* それは命令なのでどの命令か判別する */
-        if(opnum == LxDS){ /* DSとDC以外なら */
+        if(opnum == LxDS){              /* DSとDC以外なら */
             skipAllSpaces();            /* 次の数字まで飛んでおく */
         } else{
             skipToNewLineOrEOF();       /* 次の行に進めておく */
         }
-        return opnum;                     /* 命令の番号を返す */
+        return opnum;                   /* 命令の番号を返す */
     } else{
         skipToNewLineOrEOF();           /* どれでもなければ次の行に行く */
     }
@@ -243,6 +191,6 @@ public void Initialization() {
     ch = '\0';                          /* 現在の文字を初期化 */
     nextch = '\n';                      /* 次の文字の初期化 */
     position = 0;
-    clearSymTbl();                   /* ラベル表を初期化 */
+    clearSymTbl();                      /* ラベル表を初期化 */
     initializePass1();                  /* Pass1を初期化する */
 }

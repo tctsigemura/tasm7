@@ -5,11 +5,11 @@
 all: Tasm7 Tasm7.exe Tasm7.v
 
 # UNIX, Mac の a.out へ変換
-Tasm7: Tasm7.cmm Error.cmm Error.hmm SymTbl.cmm SymTbl.hmm Lexical.cmm Lexical.hmm Pass1.cmm Pass1.hmm Assemble.hmm 
+Tasm7: Tasm7.cmm Error.cmm Error.hmm SymTbl.cmm SymTbl.hmm Lexical.cmm Lexical.hmm Pass1.cmm Pass1.hmm Assemble.hmm OperationTbl.hmm RsvWord.hmm
 	cm2c -o Tasm7 Tasm7.cmm Error.cmm SymTbl.cmm Lexical.cmm Pass1.cmm 
 
 # TacOS の実行形式を作る
-Tasm7.exe: Tasm7.cmm Error.cmm Error.hmm SymTbl.cmm SymTbl.hmm Lexical.cmm Lexical.hmm Pass1.cmm Pass1.hmm Assemble.hmm 
+Tasm7.exe: Tasm7.cmm Error.cmm Error.hmm SymTbl.cmm SymTbl.hmm Lexical.cmm Lexical.hmm Pass1.cmm Pass1.hmm Assemble.hmm OperationTbl.hmm RsvWord.hmm
 	cm2e -o Tasm7.exe Tasm7.cmm Error.cmm Symtbl.cmm Lexical.cmm Pass1.cmm 
 
 # C--コンパイラの中間言語に変換する
