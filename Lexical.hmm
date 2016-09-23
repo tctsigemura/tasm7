@@ -1,52 +1,51 @@
 #ifndef LEXICAL_H
 
-#define LxNO        1       //NO
-#define LxLD        2       //LD
-#define LxST        3       //ST
+#define LxNO        0       //NO
+#define LxLD        1       //LD
+#define LxST        2       //ST
 
-#define LxADD       10      //ADD
-#define LxSUB       11      //SUB
-#define LxCMP       12      //CMP
-#define LxAND       13      //AND
-#define LxOR        14      //OR
-#define LxXOR       15      //XOR
+#define LxADD       3      //ADD
+#define LxSUB       4      //SUB
+#define LxCMP       5      //CMP
+#define LxAND       6      //AND
+#define LxOR        7      //OR
+#define LxXOR       8      //XOR
 
-#define LxSHLA      20      //SHLA
-#define LxSHLL      21      //SHLL
-#define LxSHRA      22      //SHRA
-#define LxSHRL      23      //SHRL
+#define LxSHLA      9      //SHLA
+#define LxSHLL      10      //SHLL
+#define LxSHRA      11      //SHRA
+#define LxSHRL      12      //SHRL3
+#define LxJMP       13      //JMP
+#define LxJZ        14      //JZ
+#define LxJC        15      //JC
+#define LxJM        16      //JM
+#define LxJNZ       17      //JNZ
+#define LxJNC       18      //JNC
+#define LxJNM       19      //JNM
+#define LxCALL      20      //CALL
 
-#define LxJMP       30      //JMP
-#define LxJZ        31      //JZ
-#define LxJC        32      //JC
-#define LxJM        33      //JM
-#define LxJNZ       34      //JNZ
-#define LxJNC       35      //JNC
-#define LxJNM       36      //JNM
-#define LxCALL      37      //CALL
+#define LxPUSH      21      //PUSH
+#define LxPUSHF     22      //PUSHF
+#define LxPOP       23      //POP
+#define LxPOPF      24      //POPF
 
-#define LxPUSH      40      //PUSH
-#define LxPUSHF     41      //PUSHF
-#define LxPOP       42      //POP
-#define LxPOPF      43      //POPF
+#define LxIN        25      //IN
+#define LxOUT       26      //OUT
+#define LxEI        27      //EI
+#define LxDI        28      //DI
+#define LxRET       29      //RET
+#define LxRETI      30      //RETI
+#define LxHALT      31      //HALT
 
-#define LxIN        50      //IN
-#define LxOUT       51      //OUT
-#define LxEI        52      //EI
-#define LxDI        53      //DI
-#define LxRET       54      //RET
-#define LxRETI      55      //RETI
-#define LxHALT      56      //HALT
+#define LxEQU       32      //EQU
+#define LxORG       33      //ORG
+#define LxDS        34      //DS
+#define LxDC        35      //DC
 
-#define LxEQU       60      //EQU
-#define LxORG       61      //ORG
-#define LxDS        62      //DS
-#define LxDC        63      //DC
-
-#define LxG0        100     //G0
-#define LxG1        101     //G1
-#define LxG2        102     //G2
-#define LxSP        103     //SP
+#define LxG0        36     //G0
+#define LxG1        37     //G1
+#define LxG2        38     //G2
+#define LxSP        39     //SP
 
 #define RsvNum    40      //予約語の数
 

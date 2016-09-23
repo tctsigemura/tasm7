@@ -4,6 +4,7 @@
 #include "Pass1.hmm"
 #include "Lexical.hmm"
 #include "SymTbl.hmm"
+#include "OperationTbl.hmm"
 
 // static変数
 boolean errflag;        /* エラーフラグ */
@@ -26,75 +27,77 @@ public boolean pass1(){
             asignLabel();
             getCh();
         } else if(token == LxNO){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxNO].size);
         } else if(token == LxLD){
-            increaseSymbleAddress(2);
+            printf("getLD\n");
+            increaseSymbleAddress(operationtbl[LxLD].size);
         } else if(token == LxST){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxST].size);
         } else if (token == LxADD){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxADD].size);
         } else if(token == LxSUB){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxSUB].size);
         } else if(token == LxCMP){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxCMP].size);
         } else if(token == LxAND){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxAND].size);
         } else if(token == LxOR){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxOR].size);
         } else if(token == LxXOR){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxXOR].size);
         } else if(token == LxSHLA){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxSHLA].size);
         } else if(token == LxSHLL){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxSHLL].size);
         } else if(token == LxSHRA){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxSHRA].size);
         } else if(token == LxSHRL){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxSHRL].size);
         } else if(token == LxJMP){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJMP].size);
         } else if(token == LxJZ){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJZ].size);
         } else if(token == LxJC){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJC].size);
         } else if(token == LxJM){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJM].size);
         } else if(token == LxCALL){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxCALL].size);
         } else if(token == LxJNZ){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJNZ].size);
         } else if(token == LxJNC){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJNC].size);
         } else if(token == LxJNM){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxJNM].size);
         } else if(token == LxIN){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxIN].size);
         } else if(token == LxOUT){
-            increaseSymbleAddress(2);
+            increaseSymbleAddress(operationtbl[LxOUT].size);
         } else if(token == LxPUSH){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxPUSH].size);
         } else if(token == LxPUSHF){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxPUSHF].size);
         } else if(token == LxPOP){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxPOP].size);
         } else if(token == LxPOPF){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxPOPF].size);
         } else if(token == LxEI){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxEI].size);
         } else if(token == LxDI){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxDI].size);
         } else if(token == LxRET){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxRET].size);
         } else if(token == LxRETI){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxRETI].size);
         } else if(token == LxHALT){
-            increaseSymbleAddress(1);
+            increaseSymbleAddress(operationtbl[LxHALT].size);
         } else if(token == LxEQU){
             ;
         } else if(token == LxORG){
             ;
         } else if(token == LxDC){
-            increaseSymbleAddress(1);
+            printf("getDC\n");
+            increaseSymbleAddress(operationtbl[LxDC].size);
         } else if(token == LxDS){
             asignDS();
         } else{
