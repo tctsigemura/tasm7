@@ -19,7 +19,7 @@ public void initializePass1(){
 }
 
 public boolean pass1(){
-    printf("Pass1start\n");
+    printf("pass1start\n");
     while(true){
         token = getTok();
         
@@ -29,7 +29,6 @@ public boolean pass1(){
         } else if(token == LxNO){
             increaseSymbleAddress(operationtbl[LxNO].size);
         } else if(token == LxLD){
-            printf("getLD\n");
             increaseSymbleAddress(operationtbl[LxLD].size);
         } else if(token == LxST){
             increaseSymbleAddress(operationtbl[LxST].size);
@@ -96,7 +95,6 @@ public boolean pass1(){
         } else if(token == LxORG){
             ;
         } else if(token == LxDC){
-            printf("getDC\n");
             increaseSymbleAddress(operationtbl[LxDC].size);
         } else if(token == LxDS){
             asignDS();
