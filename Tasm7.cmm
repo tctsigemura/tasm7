@@ -42,15 +42,14 @@ public int main(int argc, char[][] argv){
     }
 
     if (argc==i+1) {                                /* 引数としてソースファイルがある */
-        sourcefp = fopen(argv[i],"r");              /* ソースファイルをオープン
+        sourcefp = fopen(argv[i],"r");              /* ソースファイルをオープン */
         if(sourcefp == null){                       // オープン失敗の場合は、
             perror(argv[i]);                        // エラー出力
             return -1 ;
             }
     }
-    
+
     if(argc>2) {                                    /* 引数が多すぎる場合 */
-        printf("%d\n",argc);
         error("引数が多すぎます");
         return -1;
     }

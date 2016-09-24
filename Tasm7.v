@@ -84,10 +84,8 @@ _ds
 .L9
 	STRING	"r"
 .L10
-	STRING	"%d\n"
-.L11
 	STRING	"引数が多すぎます"
-.L12
+.L11
 	STRING	"r"
 _main
 	ENTRY	1
@@ -97,7 +95,7 @@ _main
 	LDP	1
 	LDL	1
 	EQ
-	JF	.L13
+	JF	.L12
 	LDC	.L7
 	ARG
 	CALLP	1,_error
@@ -106,12 +104,12 @@ _main
 	CALLP	1,_exit
 	LDC	65535
 	MREG
-	JMP	.L14
-.L13
+	JMP	.L13
+.L12
 	LDP	1
 	LDL	1
 	GT
-	JF	.L15
+	JF	.L14
 	LDC	.L8
 	ARG
 	LDP	2
@@ -121,7 +119,7 @@ _main
 	CALLF	2,_strCmp
 	LDC	0
 	EQ
-	JF	.L15
+	JF	.L14
 	LDP	2
 	LDC	0
 	LDW
@@ -129,14 +127,14 @@ _main
 	CALLP	1,.usage
 	LDC	0
 	MREG
-	JMP	.L14
-.L15
+	JMP	.L13
+.L14
 	LDL	1
 	LDC	1
 	ADD
 	LDP	1
 	EQ
-	JF	.L16
+	JF	.L15
 	LDC	.L9
 	ARG
 	LDP	2
@@ -146,33 +144,45 @@ _main
 	CALLF	2,_fopen
 	STG	_sourcefp
 	POP
+	LDG	_sourcefp
+	LDC	0
+	EQ
+	JF	.L16
+	LDP	2
+	LDL	1
+	LDW
+	ARG
+	CALLP	1,_perror
+	LDC	65535
+	MREG
+	JMP	.L13
+.L16
+.L15
 	LDP	1
-	ARG
+	LDC	2
+	GT
+	JF	.L17
 	LDC	.L10
-	ARG
-	CALLF	2,_printf
-	POP
-	LDC	.L11
 	ARG
 	CALLP	1,_error
 	LDC	65535
 	MREG
-	JMP	.L14
-.L16
+	JMP	.L13
+.L17
 	LDC	0
 	STG	_token
 	POP
 	CALLP	0,_Initialization
-.L17
-	CALLF	0,_pass1
-	JF	.L18
-	JMP	.L17
 .L18
+	CALLF	0,_pass1
+	JF	.L19
+	JMP	.L18
+.L19
 	LDG	_sourcefp
 	ARG
 	CALLF	1,_fclose
 	POP
-	LDC	.L12
+	LDC	.L11
 	ARG
 	LDP	2
 	LDC	1
@@ -181,12 +191,12 @@ _main
 	CALLF	2,_fopen
 	STG	_sourcefp
 	POP
-.L19
-	CALLF	0,_pass2
-	JF	.L20
-	JMP	.L19
 .L20
+	CALLF	0,_pass2
+	JF	.L21
+	JMP	.L20
+.L21
 	LDC	0
 	MREG
-.L14
+.L13
 	RET
