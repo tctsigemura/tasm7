@@ -8,6 +8,7 @@
 #include "Lexical.hmm"
 #include "Pass1.hmm"
 #include "SymTbl.hmm"
+#include "Pass2.hmm"
 
 // 大域変数
 public FILE sourcefp;
@@ -41,13 +42,13 @@ public int main(int argc, char[][] argv){
     }
 
     if (argc==i+1) {                                /* 引数としてソースファイルがある */
-        sourcefp = fopen(argv[i],"r");
-        if(sourcefp == null){                             /* ソースファイルをオープン */
-            perror(argv[i]);                        /* オープン失敗の場合は、
-            return -1 ;                                メッセージを出力して終了 */
-        }
+        sourcefp = fopen(argv[i],"r");              /* ソースファイルをオープン */
+        if(sourcefp == null){                       // オープン失敗の場合は、
+            perror(argv[i]);                        // エラー出力
+            return -1 ;
+            }
     }
-    
+
     if(argc>2) {                                    /* 引数が多すぎる場合 */
         error("引数が多すぎます");
         return -1;
@@ -64,9 +65,14 @@ public int main(int argc, char[][] argv){
     while(pass1()){
         ;
     }
-
     fclose(sourcefp);
-    //free(dc);
+
+    // Pass2の実行
+    sourcefp = fopen(argv[1],"r");
+    while(pass2()){
+        ;
+    }
+
     //free(ds);
     return 0 ;
 }

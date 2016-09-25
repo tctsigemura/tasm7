@@ -1,3 +1,5 @@
+#ifndef OPERATIONTBL_H
+
 // 予約語の一覧表
 struct OperationTbl {
   int  operation_id;                    /* トークン値の組 */
@@ -49,3 +51,5 @@ public OperationTbl[] operationtbl = {
 { LxG2,		0,  	0x08,		0   	}, 
 { LxSP,		0,  	0x0C,		0   	}
 };
+
+#endif   /* OPERATIONTBL_H */

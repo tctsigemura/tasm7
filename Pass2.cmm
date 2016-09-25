@@ -2,3 +2,107 @@
 #include <stdio.hmm>
 #include <ctype.hmm>
 #include <string.hmm>
+
+#include "Pass2.hmm"
+#include "Lexical.hmm"
+#include "SymTbl.hmm"
+
+// static変数
+boolean errflag;        /* エラーフラグ */
+int length;
+int line;               /* 行数 */
+
+// Pass2の初期化
+public void initializePass2(){
+    errflag = false;
+    length = 0;
+    line = 0;
+}
+
+public boolean pass2(){
+    printf("pass2start\n");
+    while(true){
+        token = getTok();
+        
+        if(token == LABEL){
+            ;
+        } else if(token == LxNO){
+            ;
+        } else if(token == LxLD){
+            ;
+        } else if(token == LxST){
+            ;
+        } else if (token == LxADD){
+            ;
+        } else if(token == LxSUB){
+            ;
+        } else if(token == LxCMP){
+            ;
+        } else if(token == LxAND){
+            ;
+        } else if(token == LxOR){
+            ;
+        } else if(token == LxXOR){
+            ;
+        } else if(token == LxSHLA){
+            ;
+        } else if(token == LxSHLL){
+            ;
+        } else if(token == LxSHRA){
+            ;
+        } else if(token == LxSHRL){
+            ;
+        } else if(token == LxJMP){
+            ;
+        } else if(token == LxJZ){
+            ;
+        } else if(token == LxJC){
+            ;
+        } else if(token == LxJM){
+            ;
+        } else if(token == LxCALL){
+            ;
+        } else if(token == LxJNZ){
+            ;
+        } else if(token == LxJNC){
+            ;
+        } else if(token == LxJNM){
+            ;
+        } else if(token == LxIN){
+            ;
+        } else if(token == LxOUT){
+            ;
+        } else if(token == LxPUSH){
+            ;
+        } else if(token == LxPUSHF){
+            ;
+        } else if(token == LxPOP){
+            ;
+        } else if(token == LxPOPF){
+            ;
+        } else if(token == LxEI){
+            ;
+        } else if(token == LxDI){
+            ;
+        } else if(token == LxRET){
+            ;
+        } else if(token == LxRETI){
+            ;
+        } else if(token == LxHALT){
+            ;
+        } else if(token == LxEQU){
+            ;
+        } else if(token == LxORG){
+            ;
+        } else if(token == LxDC){
+            ;
+        } else if(token == LxDS){
+            ;
+        } else{
+            printf("pass2end\n");
+            return false;
+        }
+    }
+    
+    return true;
+}

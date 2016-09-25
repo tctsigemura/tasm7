@@ -1,0 +1,3 @@
+public void initializationPass2();
+public boolean pass2();
+
