@@ -2,5 +2,6 @@
 
 public void initializePass1();
 public boolean pass1();
+public boolean pass1flag;
 
 #endif      /* PASS1 */

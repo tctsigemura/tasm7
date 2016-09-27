@@ -6,6 +6,9 @@
 #include "SymTbl.hmm"
 #include "OperationTbl.hmm"
 
+// 大域変数
+public boolean pass1flag = false;
+
 // static変数
 boolean errflag;        /* エラーフラグ */
 int length;

@@ -40,13 +40,21 @@ public int main(int argc, char[][] argv){
         usage(argv[0]);
         return 0 ;
     }
-
+    
     if (argc==i+1) {                                /* 引数としてソースファイルがある */
         sourcefp = fopen(argv[i],"r");              /* ソースファイルをオープン */
+        listfp = fopen("list.lst","w");              /* リストファイルをオープン */
+        binaryfp = fopen("binary.bin","w");         /* バイナリファイルのオープン */
         if(sourcefp == null){                       // オープン失敗の場合は、
             perror(argv[i]);                        // エラー出力
             return -1 ;
-            }
+        } else if(listfp == null){
+            perror("list.lst");
+            return -1;
+        } else if(binaryfp == null){
+            perror("binary.bin");
+            return -1;
+        }
     }
 
     if(argc>2) {                                    /* 引数が多すぎる場合 */
@@ -65,7 +73,10 @@ public int main(int argc, char[][] argv){
     while(pass1()){
         ;
     }
+
+    pass1flag = true;
     fclose(sourcefp);
+    Initialization();
 
     // Pass2の実行
     sourcefp = fopen(argv[1],"r");
@@ -73,6 +84,9 @@ public int main(int argc, char[][] argv){
         ;
     }
 
-    //free(ds);
+    fclose(sourcefp);
+    fclose(listfp);
+    fclose(binaryfp);
+    free(ds);
     return 0 ;
 }
