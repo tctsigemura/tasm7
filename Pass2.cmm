@@ -18,91 +18,54 @@ public void initializePass2(){
     length = 0;
     line = 0;
 }
-
 public boolean pass2(){
     printf("pass2start\n");
     while(true){
         token = getTok();
-        
+        printf("%d\n",token);
         if(token == LABEL){
-            ;
+            getLabelAddress();
+            getCh();
         } else if(token == LxNO){
-            ;
+            opType(operationtbl[LxNO].analyzer);
         } else if(token == LxLD){
-            ;
+            printRsvWord(token);
+            opType(operationtbl[LxLD].analyzer);
         } else if(token == LxST){
-            ;
+            opType(operationtbl[LxST].analyzer);
         } else if (token == LxADD){
-            ;
+            opType(operationtbl[LxADD].analyzer);
         } else if(token == LxSUB){
-            ;
+            opType(operationtbl[LxSUB].analyzer);
         } else if(token == LxCMP){
-            ;
+            opType(operationtbl[LxCMP].analyzer);
         } else if(token == LxAND){
-            ;
+            opType(operationtbl[LxAND].analyzer);
         } else if(token == LxOR){
-            ;
+            opType(operationtbl[LxOR].analyzer);
         } else if(token == LxXOR){
-            ;
+            opType(operationtbl[LxOR].analyzer);
         } else if(token == LxSHLA){
-            ;
+            opType(operationtbl[LxSHLA].analyzer);
         } else if(token == LxSHLL){
-            ;
+            opType(operationtbl[LxSHLL].analyzer);
         } else if(token == LxSHRA){
-            ;
+            opType(operationtbl[LxSHRA].analyzer);
         } else if(token == LxSHRL){
-            ;
+            opType(operationtbl[LxSHRL].analyzer);
         } else if(token == LxJMP){
-            ;
+            opType(operationtbl[LxJMP].analyzer);
         } else if(token == LxJZ){
-            ;
+            opType(operationtbl[LxJZ].analyzer);
         } else if(token == LxJC){
-            ;
+            opType(operationtbl[LxJC].analyzer);
         } else if(token == LxJM){
-            ;
+            opType(operationtbl[LxJM].analyzer);
         } else if(token == LxCALL){
-            ;
+            opType(operationtbl[LxCALL].analyzer);
         } else if(token == LxJNZ){
-            ;
+            opType(operationtbl[LxJNZ].analyzer);
         } else if(token == LxJNC){
-            ;
+            opType(operationtbl[LxJNC].analyzer);
         } else if(token == LxJNM){
-            ;
-        } else if(token == LxIN){
-            ;
-        } else if(token == LxOUT){
-            ;
-        } else if(token == LxPUSH){
-            ;
-        } else if(token == LxPUSHF){
-            ;
-        } else if(token == LxPOP){
-            ;
-        } else if(token == LxPOPF){
-            ;
-        } else if(token == LxEI){
-            ;
-        } else if(token == LxDI){
-            ;
-        } else if(token == LxRET){
-            ;
-        } else if(token == LxRETI){
-            ;
-        } else if(token == LxHALT){
-            ;
-        } else if(token == LxEQU){
-            ;
-        } else if(token == LxORG){
-            ;
-        } else if(token == LxDC){
-            ;
-        } else if(token == LxDS){
-            ;
-        } else{
-            printf("pass2end\n");
-            return false;
-        }
-    }
-    
-    return true;
-}
+
