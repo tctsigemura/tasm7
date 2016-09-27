@@ -22,10 +22,8 @@ public boolean pass1(){
     printf("pass1start\n");
     while(true){
         token = getTok();
-        
         if(token == LABEL){
             asignLabel();
-            getCh();
         } else if(token == LxNO){
             increaseSymbleAddress(operationtbl[LxNO].size);
         } else if(token == LxLD){

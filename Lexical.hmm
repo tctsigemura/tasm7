@@ -54,6 +54,7 @@
 public char ch;
 public char nextch;
 public int token;
+public char[] str;
 
 public char getCh();
 public int getDigit();
