@@ -9,5 +9,6 @@ public int[] ds;
 public void clearSymTbl();
 public void asignLabel();
 public void asignDS();
+public void getLabelAddress();
 public void increaseSymbleAddress(int i);
 #endif      /* SYMTBL */

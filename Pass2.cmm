@@ -6,6 +6,9 @@
 #include "Pass2.hmm"
 #include "Lexical.hmm"
 #include "SymTbl.hmm"
+#include "OperationType.hmm"
+#include "OperationTbl.hmm"
+#include "Editor.hmm"
 
 // 大域変数
 public boolean pass2flag = false;
@@ -28,7 +31,6 @@ public boolean pass2(){
         printf("%d\n",token);
         if(token == LABEL){
             getLabelAddress();
-            getCh();
         } else if(token == LxNO){
             opType(operationtbl[LxNO].analyzer);
         } else if(token == LxLD){

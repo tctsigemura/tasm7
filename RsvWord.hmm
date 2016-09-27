@@ -4,47 +4,4 @@ struct RsvWord {
   int  operation_id;                    /* トークン値の組 */
 };
 
-public RsvWord[] rsvWord = {
-{ "NO",		LxNO }, 
-{ "LD",		LxLD },
-{ "ST", 	LxST }, 
-{ "ADD", 	LxADD },
-{ "SUB", 	LxSUB },
-{ "CMP",	LxCMP },
-{ "AND", 	LxAND }, 
-{ "OR",   	LxOR },
-{ "XOR", 	LxXOR }, 
-{ "SHLA",  	LxSHLA },
-{ "SHLL",	LxSHLL }, 
-{ "SHRA",  	LxSHRA },
-{ "SHRL", 	LxSHRL }, 
-{ "JMP",  	LxJMP },
-{ "JZ",		LxJZ }, 
-{ "JC",   	LxJC },
-{ "JM",		LxJM }, 
-{ "CALL",  	LxCALL },
-{ "JNZ",	LxJNZ}, 
-{ "JNC",    LxJNC },
-{ "JNM", 	LxJNM }, 
-{ "IN",     LxIN },
-{ "OUT", 	LxOUT }, 
-{ "PUSH",  	LxPUSH },
-{ "PUSHF",	LxPUSHF }, 
-{ "POP", 	LxPOP },
-{ "POPF", 	LxPOPF }, 
-{ "EI",		LxEI },
-{ "DI",		LxDI }, 
-{ "RET",	LxRET },
-{ "RETI",	LxRETI }, 
-{ "HALT",	LxHALT },
-{ "EQU",	LxEQU }, 
-{ "ORG",	LxORG },
-{ "DS",		LxDS }, 
-{ "DC",		LxDC },
-
-{ "G0",		LxG0 }, 
-{ "G1",		LxG1 },
-{ "G2",		LxG2 }, 
-{ "SP",		LxSP }
-};
-
+public RsvWord[] rsvWord;

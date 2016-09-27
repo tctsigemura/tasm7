@@ -55,6 +55,9 @@ public void asignDS(){
     ds = malloc(sizeof(int)*cnt);               /* DSの領域を確保 */
 }
 
+public void getLabelAddress(){
+}
+
 /*
  * ラベル表のアドレスを上げる
  */

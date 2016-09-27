@@ -1,8 +1,9 @@
-##include <string.hmm>
+#include <string.hmm>
 #include <stdlib.hmm>
 #include <stdio.hmm>
 #include <ctype.hmm>
 
+#include "Editor.hmm"
 #include "Assemble.hmm"
 #include "Lexical.hmm"
 #include "RsvWord.hmm"

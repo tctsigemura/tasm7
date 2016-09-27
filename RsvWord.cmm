@@ -1,3 +1,6 @@
+#include "RsvWord.hmm"
+#include "Lexical.hmm"
+
 public RsvWord[] rsvWord = {
 { "NO",		LxNO }, 
 { "LD",		LxLD },

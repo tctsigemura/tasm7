@@ -1,3 +1,6 @@
+#include "OperationTbl.hmm"
+#include "Lexical.hmm"
+
 public OperationTbl[] operationtbl = {
 { LxNO,     1,		0x00,		1		}, 
 { LxLD,   	2,		0x10,		4		},
@@ -34,7 +37,7 @@ public OperationTbl[] operationtbl = {
 { LxEQU,	0,		0xFF,		7		}, 
 { LxORG,	0,		0xFF,		7		},
 { LxDS,		0,		0xFF,		7		}, 
-{ LxDC,		0,		0xFF,		8		},
+{ LxDC,		1,		0xFF,		8		},
 
 { LxG0,		0,  	0x00,		0   	}, 
 { LxG1,		0,  	0x04,		0   	},
