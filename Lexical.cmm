@@ -9,6 +9,7 @@
 #include "Pass1.hmm"
 #include "RsvWord.hmm"
 #include "Error.hmm"
+#include "Pass2"
 
 // 大域変数
 public char ch;             /* 現在の文字 */
@@ -188,6 +189,10 @@ public void Initialization() {
     ch = '\0';                          /* 現在の文字を初期化 */
     nextch = '\n';                      /* 次の文字の初期化 */
     position = 0;
-    clearSymTbl();                      /* ラベル表を初期化 */
-    initializePass1();                  /* Pass1を初期化する */
+    if(pass1flag == false){
+        clearSymTbl();                      /* ラベル表を初期化 */
+        initializePass1();                  /* Pass1を初期化する */
+    }
+    initializePass2();
 }
+
