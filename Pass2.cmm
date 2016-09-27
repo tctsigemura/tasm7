@@ -7,6 +7,9 @@
 #include "Lexical.hmm"
 #include "SymTbl.hmm"
 
+// 大域変数
+public boolean pass2flag = false;
+
 // static変数
 boolean errflag;        /* エラーフラグ */
 int length;
@@ -68,4 +71,42 @@ public boolean pass2(){
         } else if(token == LxJNC){
             opType(operationtbl[LxJNC].analyzer);
         } else if(token == LxJNM){
-
+            opType(operationtbl[LxJNM].analyzer);
+        } else if(token == LxIN){
+            opType(operationtbl[LxIN].analyzer);
+        } else if(token == LxOUT){
+            opType(operationtbl[LxOUT].analyzer);
+        } else if(token == LxPUSH){
+            opType(operationtbl[LxPUSH].analyzer);
+        } else if(token == LxPUSHF){
+            opType(operationtbl[LxPUSHF].analyzer);
+        } else if(token == LxPOP){
+            opType(operationtbl[LxPOP].analyzer);
+        } else if(token == LxPOPF){
+            opType(operationtbl[LxPOPF].analyzer);
+        } else if(token == LxEI){
+            opType(operationtbl[LxEI].analyzer);
+        } else if(token == LxDI){
+            opType(operationtbl[LxDI].analyzer);
+        } else if(token == LxRET){
+            opType(operationtbl[LxRET].analyzer);
+        } else if(token == LxRETI){
+            opType(operationtbl[LxRETI].analyzer);
+        } else if(token == LxHALT){
+            opType(operationtbl[LxHALT].analyzer);
+        } else if(token == LxEQU){
+            opType(operationtbl[LxEQU].analyzer);
+        } else if(token == LxORG){
+            opType(operationtbl[LxORG].analyzer);
+        } else if(token == LxDC){
+            opType(operationtbl[LxDC].analyzer);
+        } else if(token == LxDS){
+            opType(operationtbl[LxDS].analyzer);
+        } else{
+            printf("pass2end\n");
+            return false;
+        }
+    }
+    
+    return true;
+}
