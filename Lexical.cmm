@@ -9,7 +9,7 @@
 #include "Pass1.hmm"
 #include "RsvWord.hmm"
 #include "Error.hmm"
-#include "Pass2"
+#include "Pass2.hmm"
 
 // 大域変数
 public char ch;             /* 現在の文字 */
