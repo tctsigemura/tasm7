@@ -32,15 +32,14 @@ public void clearSymTbl(){
 public void asignLabel(){
     int i;
     for(i=0;i<LENGTH;i=i+1){                    /* ラベルの最大長まで */
-        label[label_cnt][i]=getCh();            /* ラベルの文字を登録 */
-        if(nextch == ' '){                      /* 次の文字が空白文字なら */
+        label[label_cnt][i]=str[i];            /* ラベルの文字を登録 */
+        if(str[i] == '\0'){
+            free(str);
+            printf("free\n");
             label_address[label_cnt] = pca;     /* ラベルのアドレス登録 */
             break;
-        } else if(nextch == '\n'){              /* 次の文字が空白文字なら */
-            error("No operation");              /* 命令がないことを表示 */
         } 
     }
-    printf("%s\n",label[label_cnt]);
     printf("Laddress=%d\n",label_address[label_cnt]);
     label_cnt = label_cnt+1;                    /* ラベルの個数を増やす */
     printf("label_cnt=%d\n",label_cnt);

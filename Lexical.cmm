@@ -13,7 +13,9 @@
 // 大域変数
 public char ch;             /* 現在の文字 */
 public char nextch;         /* 1つ先の文字 */
-public int token_num;           /* トークン番号 */
+public int token_num;       /* トークン番号 */
+public char[] str;          /* つづりの記憶領域を生成 */
+
 
 #define EOF '\x7f'      //ASCII, UTF-8でDEL文字
 
@@ -133,12 +135,12 @@ public int getDigit() {
 
 // 命令の種類を解析
 void searchToken() {
-    char[] str = malloc(sizeof(char)*10);           /* つづりの記憶領域を生成 */
     int i;
     int length;                                     /* つづりの長さ */
-    opnum = 0;
-
+    str = malloc(LENGTH*sizeof(char));
+    opnum = LABEL;
     for(length=0; isAlpha(ch) && length<LENGTH; length=length+1){    /* アルファベットで開始かつ長さがオーバーしていない */
+        printf("%c\n",ch);
         str[length] = ch;                           /* 文字を記憶 */
         getCh();                                    /* 次の文字をとってくる */
     }
@@ -148,15 +150,12 @@ void searchToken() {
     printf("%s\n",str);
     for(i=0; i<RsvNum; i=i+1) {                     /* 命令の種類の数まで */
         if(strCmp(str,rsvWord[i].token) == 0) {     /* どの命令か判定し一致すれば */
-            opnum = rsvWord[i].operation_id;        /* 命令の番号を代入 */         
+            opnum = rsvWord[i].operation_id;        /* 命令の番号を代入 */        
             break;
         }
     }
-    free(str);                                      /* strの領域解放 */
-
-    if(opnum == 0) {
-    error("存在しない命令です\n");
-    exit(1);
+    if(opnum != LABEL){
+        free(str);                                      /* strの領域解放 */
     }
 }
 
@@ -164,11 +163,9 @@ public int getTok(){
     if(ch == '\0')                      /* 一度も文字を取ってきていない場合は */
         getCh();                        /* 初めの文字を取ってくる */
     skipAllSpaces();                    /* 次の文字まで行く */
-    if(ch == '_'){                      /* '_'で始まるなら */
-        return LABEL;                   /* それはラベルであることを返す */
-    } else if(isAlpha(ch)){             /* 英文字で始まるなら */
+    if(isAlpha(ch)){                    /* 英文字で始まるなら */
         searchToken();                  /* それは命令なのでどの命令か判別する */
-        if(opnum == LxDS){              /* DSとDC以外なら */
+        if(opnum == LxDS || opnum == LABEL){              /* DSとDC以外なら */
             skipAllSpaces();            /* 次の数字まで飛んでおく */
         } else{
             skipToNewLineOrEOF();       /* 次の行に進めておく */
