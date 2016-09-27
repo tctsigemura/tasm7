@@ -1,4 +1,14 @@
-#include <stdlib.hmm>
+##include <stdlib.hmm>
 #include <stdio.hmm>
 #include <ctype.hmm>
 #include <string.hmm>
+
+public void opType(int i){
+    
+    if(i == 1){
+        ;
+    } else{
+        ;
+    }
+
+}
