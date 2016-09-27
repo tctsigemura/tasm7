@@ -1,3 +1,1 @@
-public void printOutFile();
-public void writeInFile(char ch);
-
+public void printRsvWord(int i);

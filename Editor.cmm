@@ -1,24 +1,14 @@
-#include<stdio.hmm>
-#include<errno.hmm>
-#include "Editor.hmm"
+##include <string.hmm>
+#include <stdlib.hmm>
+#include <stdio.hmm>
+#include <ctype.hmm>
 
-public void printOutFile(){
-	char[] fname = "AssCode.txt";
-	FILE Pfp = fopen(fname, "r");
-  	if (Pfp==null) {
-		perror(fname); // エラー表示を自分で行う
-	 }
-  	while (!feof(Pfp)){
-        printf("%02x ", fgetc(Pfp));
-//    	putchar(fgetc(Pfp));
-	}
-	fclose(Pfp);	
-}
-	
-public void writeInFile(char ch){
-	char[] fname = "MCode.txt";
-	FILE Wfp = fopen(fname,"w"); //ファイルがあるときも新規作成する
-	fputc(ch,Wfp);
-	fclose(Wfp);
+#include "Assemble.hmm"
+#include "Lexical.hmm"
+#include "RsvWord.hmm"
+
+public void printRsvWord(int i){
+    printf("printword\n");
+    fputs(rsvWord[i].token,listfp);
 }
 
