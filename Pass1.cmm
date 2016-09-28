@@ -30,6 +30,7 @@ public boolean pass1(){
         } else if(token == LxNO){
             increaseSymbleAddress(operationtbl[LxNO].size);
         } else if(token == LxLD){
+            printf("before increase LD\n");
             increaseSymbleAddress(operationtbl[LxLD].size);
         } else if(token == LxST){
             increaseSymbleAddress(operationtbl[LxST].size);

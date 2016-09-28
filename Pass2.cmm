@@ -28,7 +28,7 @@ public boolean pass2(){
     printf("pass2start\n");
     while(true){
         token = getTok();
-        printf("%d\n",token);
+        //printf("%d\n",token);
         if(token == LABEL){
             getLabelAddress();
         } else if(token == LxNO){
