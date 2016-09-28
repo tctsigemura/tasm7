@@ -40,9 +40,9 @@ public void asignLabel(){
             break;
         } 
     }
-    //printf("Laddress=%d\n",label_address[label_cnt]);
+    printf("Laddress=%d\n",label_address[label_cnt]);
     label_cnt = label_cnt+1;                    /* ラベルの個数を増やす */
-    //printf("label_cnt=%d\n",label_cnt);
+    printf("label_cnt=%d\n",label_cnt);
 }
 
 /*
@@ -51,7 +51,7 @@ public void asignLabel(){
 public void asignDS(){
     int cnt;                                    /* DSの個数を保存 */
     cnt = getDigit();                           /* 何進数か判定後、cntに保存する */
-    //printf("ds_cnt = %d\n",cnt);
+    printf("ds_cnt = %d\n",cnt);
     ds = malloc(sizeof(int)*cnt);               /* DSの領域を確保 */
 }
 
@@ -64,6 +64,5 @@ public void getLabelAddress(){
 
 public void increaseSymbleAddress(int i){
     pca = pca + i;                              /* プログラムカウンタをi増加させる */
-    printf("before increase pca\n");
-    //printf("pca = %d\n",pca);
+    printf("pca = %d\n",pca);
 }

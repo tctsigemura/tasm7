@@ -136,28 +136,19 @@ public int getDigit() {
 
 // 命令の種類を解析
 void searchToken() {
-    printf("start searchToken\n");
     int i;
     int length;                                     /* つづりの長さ */
-    printf("before str malloc\n");
     str = malloc(LENGTH*sizeof(char));
-    printf("after str malloc\n");
     opnum = LABEL;
-    for(length=0 , printf("after length\n"); isAlpha(ch) && length<LENGTH; length=length+1){    /* アルファベットで開始かつ長さがオーバーしていない */
-        printf("after str of for statement\n");
+    for(length=0; isAlpha(ch) && length<LENGTH; length=length+1){    /* アルファベットで開始かつ長さがオーバーしていない */
         str[length] = ch;                           /* 文字を記憶 */
         getCh();                                    /* 次の文字をとってくる */
     }
     
-    printf("before /0\n");
     str[length] = '\0';
-    printf("after /0\n");
 
-    /* printf("%s\n",str);      bug here */
 
-    printf("after printf str\n");
     for(i=0; i<RsvNum; i=i+1) {                     /* 命令の種類の数まで */
-        //printf("before cmpare str and token\n");
         if(strCmp(str,rsvWord[i].token) == 0) {     /* どの命令か判定し一致すれば */
             opnum = rsvWord[i].operation_id;        /* 命令の番号を代入 */        
             break;
@@ -169,12 +160,10 @@ void searchToken() {
 }
 
 public int getTok(){
-    printf("start get Token\n");
     if(ch == '\0')                      /* 一度も文字を取ってきていない場合は */
         getCh();                        /* 初めの文字を取ってくる */
     skipAllSpaces();                    /* 次の文字まで行く */
     if(isAlpha(ch)){                    /* 英文字で始まるなら */
-        printf("before search token\n");
         searchToken();                  /* それは命令なのでどの命令か判別する */
         if(opnum == LxDS || opnum == LABEL){              /* DSとDC以外なら */
             skipAllSpaces();            /* 次の数字まで飛んでおく */

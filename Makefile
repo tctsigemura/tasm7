@@ -10,7 +10,7 @@ Tasm7: Tasm7.cmm Error.cmm Error.hmm SymTbl.cmm SymTbl.hmm Lexical.cmm Lexical.h
 
 # TacOS の実行形式を作る
 Tasm7.exe: Tasm7.cmm Error.cmm Error.hmm SymTbl.cmm SymTbl.hmm Lexical.cmm Lexical.hmm Pass1.cmm Pass1.hmm Assemble.hmm OperationTbl.cmm OperationTbl.hmm RsvWord.cmm RsvWord.hmm Pass2.cmm Pass2.hmm Editor.cmm Editor.hmm OperationType.cmm OperationType.hmm
-	cm2e -o Tasm7.exe Tasm7.cmm Error.cmm Symtbl.cmm Lexical.cmm Pass1.cmm Pass2.cmm Editor.cmm OperationType.cmm OperationTbl.cmm RsvWord.cmm
+	cm2e -o Tasm7.exe -s 1000 Tasm7.cmm Error.cmm Symtbl.cmm Lexical.cmm Pass1.cmm Pass2.cmm Editor.cmm OperationType.cmm OperationTbl.cmm RsvWord.cmm
 
 # C--コンパイラの中間言語に変換する
 Tasm7.v: Tasm7.cmm
